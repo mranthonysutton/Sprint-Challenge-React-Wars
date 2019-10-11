@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 const StarWarsRender = props => {
   const [personData, setPersonData] = useState([]);
+  const [pageControl, setPageControl] = useState(1);
 
   const FlexContainer = styled.div`
     display: flex;
@@ -15,7 +16,7 @@ const StarWarsRender = props => {
 
   useEffect(() => {
     axios
-      .get("https://swapi.co/api/people/")
+      .get(`https://swapi.co/api/people/?page=${pageControl}`)
       .then(response => {
         console.log(response.data);
         setPersonData(response.data.results);
@@ -23,23 +24,29 @@ const StarWarsRender = props => {
       .catch(error => {
         console.log(error);
       });
-  }, []);
+  }, [pageControl]);
 
   return (
-    <FlexContainer>
-      {personData.map((person, index) => {
-        return (
-          <StarWarsCard
-            key={index}
-            name={person.name}
-            gender={person.gender}
-            hairColor={person.hair_color}
-            eyeColor={person.eye_color}
-            skinColor={person.skin_color}
-          />
-        );
-      })}
-    </FlexContainer>
+    <>
+      <>
+        <button onClick={() => setPageControl(pageControl - 1)}>Prev</button>
+        <button onClick={() => setPageControl(pageControl + 1)}>Next</button>
+      </>
+      <FlexContainer>
+        {personData.map((person, index) => {
+          return (
+            <StarWarsCard
+              key={index}
+              name={person.name}
+              gender={person.gender}
+              hairColor={person.hair_color}
+              eyeColor={person.eye_color}
+              skinColor={person.skin_color}
+            />
+          );
+        })}
+      </FlexContainer>
+    </>
   );
 };
 
