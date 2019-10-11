@@ -65,6 +65,7 @@ const StarWarsRender = props => {
         </PaginationButtons>
       </ButtonContainer>
       <FlexContainer>
+        {/* Maps through api response data and assign props to each person */}
         {personData.map((person, index) => {
           return (
             <StarWarsCard
