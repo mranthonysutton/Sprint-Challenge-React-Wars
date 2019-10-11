@@ -17,7 +17,7 @@ const StarWarsRender = props => {
     axios
       .get("https://swapi.co/api/people/")
       .then(response => {
-        // console.log(response.data.results);
+        console.log(response.data);
         setPersonData(response.data.results);
       })
       .catch(error => {
